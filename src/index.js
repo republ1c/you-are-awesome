@@ -1,12 +1,41 @@
 // DO WHATEVER YOU WANT HERE
 
-const createEnumerableProperty = () => {};
-const createNotEnumerableProperty = () => {};
-const createProtoMagicObject = () => {};
-const incrementor = () => {};
-const asyncIncrementor = () => {};
-const createIncrementer = () => {};
+const createEnumerableProperty = (propertyName) => { return propertyName };
 
+const createNotEnumerableProperty = (propertyName) => {
+    Object.defineProperty(Object.prototype, propertyName, {
+        set: function (value) { propertyName = value },
+        get: function () { return propertyName },
+    })
+    return propertyName;
+};
+
+ const createProtoMagicObject  = function () {
+
+  var magicObj = createProtoMagicObject;
+  magicObj.__proto__ = magicObj.prototype;
+  return magicObj;
+}
+
+var inc = function () {
+  var incrementor = function () {
+    incrementor.currentCount++;
+    return incrementor;
+  };
+  incrementor.valueOf = function () { return incrementor.currentCount;}
+  incrementor.currentCount = 0;
+
+  return incrementor;
+}
+const incrementor = inc();
+
+let asynccount = 1;
+const asyncIncrementor = () => {
+  return asynccount++;
+}
+
+
+const createIncrementer = () => {}
 // return same argument not earlier than in one second, and not later, than in two
 const returnBackInSecond = () => {};
 const getDeepPropertiesCount = () => {};
